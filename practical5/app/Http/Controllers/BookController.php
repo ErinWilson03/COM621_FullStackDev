@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class BookController extends Controller
 {
@@ -30,7 +31,13 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->all(['title', 'author', 'year', 'rating', 'description']);
+        $data = $request->validate([
+            'title' => ['required'], 
+            'author' => ['required'], 
+            'year' => ['required', 'numeric'], 
+            'rating' => ['numeric', 'min:0', 'max:5'], 
+            'description' => ['min:0', 'max:500']
+        ]);
 
         $book = Book::create($data);
         return view('book.show', ['book' => $book]);
@@ -50,7 +57,8 @@ class BookController extends Controller
      */
     public function edit(int $id)
     {
-        // TBC
+        $book = Book::findOrFail($id);
+        return view('book.edit', ['book' => $book]);
     }
 
     /**
@@ -58,7 +66,17 @@ class BookController extends Controller
      */
     public function update(Request $request, int $id)
     {
-        // TBC
+        $data = $request->validate([
+            'title' => ['required', Rule::unique('books')->ignore($id)], 
+            'author' => ['required'], 
+            'year' => ['required', 'numeric'], 
+            'rating' => ['numeric', 'min:0', 'max:5'], 
+            'description' => ['min:0', 'max:500']
+        ]);
+
+        $book = Book::findOrFail($id);
+        $book->update($data);
+        redirect(route("books.show", $book->id));
     }
 
     /**
@@ -66,6 +84,8 @@ class BookController extends Controller
      */
     public function destroy(int $id)
     {
-        // TBC
+        $book = Book::findOrFail($id);
+        $book->delete();
+        return redirect(route("books.index"));
     }
 }

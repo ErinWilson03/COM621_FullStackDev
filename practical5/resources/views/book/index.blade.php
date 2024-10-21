@@ -2,7 +2,7 @@
 
     <div class="header">
         <h1>Books</h1>
-        <a href="/books/create">Create</a>
+        <a href={{route("books.create")}}>Create</a>
     </div>
 
     <table>
@@ -23,8 +23,8 @@
                     <td>{{ $book->author }}</td>
                     <td>{{ $book->rating }}</td>
                     <td>
-                        <a href={{ "/books/{$book->id}" }}>View</a>
-                        <a href={{ "/books/{$book->id}/edit" }}>Edit</a>
+                        <a href={{ route('books.show', $book->id ) }}>View</a>
+                        <a href={{ route('books.edit', $book->id ) }}>Edit</a>
                     </td>
                 </tr>
             @endforeach

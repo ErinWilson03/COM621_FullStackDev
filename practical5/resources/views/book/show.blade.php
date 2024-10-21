@@ -2,7 +2,7 @@
 
     <div class="header">
         <h2>Book</h2>
-        <a href="/books">Back</a>
+        <a href={{route('books.index')}}>Back</a>
     </div>
 
     <div class="card">
@@ -35,7 +35,12 @@
         <div class="flex justify-end gap-2 mt-2">
             <!-- TBC -->
             <!-- add edit link -->
-            <!-- add delete form -->
+            
+            <form method="POST" action={{route("books.show", $book->id)}}>
+                @csrf
+                @method('DELETE')
+                <button type="submit">Delete</button>
+            </form>
         </div>
     </div>
 
