@@ -22,7 +22,15 @@
     <label for="category_id">Category</label>
 
     <!-- TBC Add a select element with the name category_id and options for each category -->
-
+    <select id="category_id" name="category_id">
+        <option disabled selected>Choose option ...</option>
+        @foreach ($categories as $id => $name)
+            <option value="{{$id}}" 
+            {{$book->category_id == $id ? 'selected' : ""}}>
+                {{$name}}
+            </option>
+        @endforeach
+    </select>
 
     @error('category_id')
         <div class="error">

@@ -9,7 +9,7 @@
 
         <div class="flex items-center gap-2">
             <h3>{{ $book->title }}</h3>
-            <!-- TBC add a span styled as a blue badge to display the category name -->
+           <span class="badge badge-blue">{{ $book->category->name }}</span>
         </div>
 
         <dl>
@@ -24,7 +24,6 @@
 
         <dl>
             <dt>Rating</dt>
-
             <dd><span class="badge badge-pink">{{ $book->rating }}</span> </dd>
         </dl>
 

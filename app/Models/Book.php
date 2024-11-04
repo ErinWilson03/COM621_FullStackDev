@@ -22,8 +22,7 @@ class Book extends Model
 
     public function reviews(): HasMany
     {
-        // TBC order reviews by created_at desc
-        return $this->hasMany(Review::class);
+        return $this->hasMany(Review::class)->orderByDesc('created_at');
     }
 
     protected function Rating(): Attribute

@@ -2,12 +2,19 @@
 
     <div class="header">
         <h2>Add Review</h2>
-        <a href="/books">Back</a>
     </div>
 
     <div class="card">
+        <form method="POST" action="{{ route('reviews.store', $review->book_id) }}">
+            @csrf
+            @include('reviews._inputs')
 
-        <!-- TBC complete the review form -->
+            <div class="mt-4">
+                <button class="btn btn-primary" type="submit">Create</button>
+                <a role="button" href="{{ route('books.show', $review->book_id) }}">Cancel</a>
+            </div>
+
+        </form>
 
     </div>
 

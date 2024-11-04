@@ -12,7 +12,7 @@
                 <th>Title</th>
                 <th>Author</th>
                 <th>Rating</th>
-                <!-- TBC Add category header -->
+                <th>Category</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -23,7 +23,7 @@
                     <td>{{ $book->title }}</td>
                     <td>{{ $book->author }}</td>
                     <td>{{ $book->rating }}</td>
-                    <!-- TBC Add category data -->
+                    <td>{{ $book->category->name }}</td>
                     <td>
                         <a href="{{ route('books.show', $book->id) }}">View</a>
                     </td>

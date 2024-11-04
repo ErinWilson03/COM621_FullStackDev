@@ -14,8 +14,8 @@ class BookController extends Controller
      */
     public function index()
     {
-        // TBC eagerly load categories using with()
-        $books = Book::all();
+        // TBC eagerly load categories using with() - done
+        $books = Book::with(['category'])->get();
         return view('books.index', ['books' => $books]);
     }
 
@@ -24,10 +24,12 @@ class BookController extends Controller
      */
     public function create()
     {
-        $book = new Book;
-        // TBC create categories select list containing name and id columns then pass to the view
-
-        return view('books.create', ['book' => $book]);
+        // TBC create categories select list containing name and id columns then pass to the view - done
+        $categories = Category::all()->pluck('name', 'id');
+        return view('books.create', [
+            'book' => new Book,
+            'categories'=>$categories
+        ]);
     }
 
     /**
@@ -39,6 +41,7 @@ class BookController extends Controller
         $data = $request->validate([
             'title' => ['required',],
             'author' => ['required'],
+            'category_id' => ['required'],
             'year' => ['required', 'numeric'],
             'rating' => ['required', 'numeric', 'min:0', 'max:5'],
             'description' => ['min:0', 'max:500'],
@@ -66,7 +69,11 @@ class BookController extends Controller
         $book = Book::findOrFail($id);
         // TBC create categories select list containing name and id columns then pass to the view
 
-        return view('books.edit', ['book' => $book,]);
+        $categories = Category::all()->pluck('name', 'id');
+        return view('books.edit', [
+            'book' => $book,
+            'categories'=>$categories
+        ]);
     }
 
     /**
@@ -78,6 +85,7 @@ class BookController extends Controller
         $data = $request->validate([
             'title' => ['required', Rule::unique('books')->ignore($id)],
             'author' => ['required'],
+            'category_id' => ['required'],
             'year' => ['required', 'numeric'],
             'rating' => ['required', 'numeric', 'min:0', 'max:5'],
             'description' => ['min:0', 'max:500'],
