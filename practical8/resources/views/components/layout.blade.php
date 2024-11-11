@@ -216,8 +216,10 @@
                 <a role="nav" href="/">Home</a>
                 <a role="nav" href="/about">About</a>
                 <a role="nav" href="/contact">Contact</a>
-                <!-- TBC add auth check around this link -->
-                <a role="nav" href="{{ route('books.index') }}">Books</a>
+                <!-- auth check around this link -->
+                @auth
+                    <a role="nav" href="{{ route('books.index') }}">Books</a>
+                @endauth
             </div>
 
             <!-- auth links -->

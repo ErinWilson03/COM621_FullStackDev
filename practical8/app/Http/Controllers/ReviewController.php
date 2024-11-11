@@ -5,11 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\Book;
 use App\Models\Review;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class ReviewController extends Controller
 {
     public function create(int $id)
     {
+        if(!Gate::authorize('create', 'review')){
+            return redirect()->back()->with('warning', 'Not authorised');
+        }
+
         $review = new Review;
         $review->book_id = $id;      // set review book_id
 
@@ -42,6 +47,9 @@ class ReviewController extends Controller
 
     public function destroy(int $id)
     {
+        if(!Gate::authorize('delete', 'review')){
+            return redirect()->back()->with('warning', 'Not authorised');
+        }
         // load the review
         $review = Review::with('book')->findOrFail($id);
 

@@ -20,15 +20,19 @@ class UserController extends Controller
     {
         // validate request form values
         $credentials = $request->validate([
-            // TBC
+            'name' => ['required'],
+            'email' => ['required', 'email', 'unique:users'],
+            'password' => ['min:6', 'confirmed:password_confirmation'] //double check the confirmed syntax
         ]);
 
-        // TBC create user
+        //  create user
+        $user = User::create($credentials);
 
-        // TBC login newly authenticated user
+        //  login newly authenticated user
+        Auth::login($user);
 
-        // TBC add a success message to redirect
-        return redirect()->route("home");
+        //  add a success message to redirect
+        return redirect()->route("home")->with('success', "Logged in successfully");
     }
 
     // get login form

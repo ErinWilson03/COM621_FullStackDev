@@ -3,6 +3,7 @@
 namespace App\Policies;
 
 use App\Models\Review;
+use App\Enums\Role;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 
@@ -13,6 +14,7 @@ class ReviewPolicy
      */
     public function viewAny(User $user): bool
     {
+
         return true;
     }
 
@@ -29,8 +31,8 @@ class ReviewPolicy
      */
     public function create(User $user): bool
     {
-        // TBC update so only a guest user can create a review
-        return true;
+        //only a guest user can create a review
+        return $user->role == Role::GUEST;
     }
 
     /**
@@ -38,7 +40,12 @@ class ReviewPolicy
      */
     public function delete(User $user, Review $review): bool
     {
-        // TBC update so only an admin or author user can delete a review
-        return true;
+        // only an admin or author user can delete a review
+        if ($user->role == Role::ADMIN || $user->role == Role::AUTHOR) {
+            return true;
+        } else {
+            return false;
+        }
+
     }
 }
