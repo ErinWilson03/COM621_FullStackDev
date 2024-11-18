@@ -6,7 +6,7 @@
         'red'
             => 'py-1.5 px-4 text-sm transition-colors font-medium rounded-lg text-gray-100 bg-red-700    border border-red-800    hover:bg-red-800    hover:text-white disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-red-900    active:bg-red-800',
         'green'
-            => 'py-1.5 px-4 text-sm transition-colors font-medium rounded-lg text-gray-100 bg-green-700  border border-green-800  hover:bg-green-800  hover:text-white disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-green-900  active:bg-green-900',
+            => 'py-1.5 px-4 text-sm transition-colors font-medium rounded-lg text-black bg-green-200  border border-green-800  hover:bg-green-800  hover:text-white disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-green-900  active:bg-green-900',
         'yellow'
             => 'py-1.5 px-4 text-sm transition-colors font-medium rounded-lg text-gray-100 bg-yellow-600 border border-yellow-800 hover:bg-yellow-800 hover:text-white disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-yellow-900 active:bg-yellow-900',
         'dark'

@@ -48,62 +48,6 @@
                 @apply px-6 py-3;
             }
 
-            a[role="button"] {
-                @apply btn btn-secondary hover:no-underline;
-            }
-
-            a[role="nav"] {
-                @apply nav-link;
-            }
-
-            a:not([role="button"],
-            [role="nav"]) {
-                @apply link;
-            }
-
-            /* descendant selector */
-            form label {
-                @apply block mb-2 text-sm font-medium uppercase text-gray-900 dark:text-white;
-            }
-
-            form input,
-            textarea,
-            select {
-                @apply bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500;
-            }
-
-            form input[type=file] {
-                @apply file:mr-2 file:py-2 file:px-3 file:rounded-l-md file:border-0 file:text-sm file:font-semibold hover:file:cursor-pointer hover:file:opacity-80 file:bg-gray-900 file:text-white;
-            }
-
-            button[role="primary"] {
-                @apply btn btn-primary;
-            }
-
-            button[role="secondary"] {
-                @apply btn btn-secondary;
-            }
-
-            button[role="danger"] {
-                @apply btn btn-danger;
-            }
-
-            button[role="link"] {
-                @apply link;
-            }
-
-            button[role="nav-link"] {
-                @apply nav-link;
-            }
-
-            ul {
-                @apply w-48 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg;
-            }
-
-            ul>li {
-                @apply w-full px-4 py-2 border-b border-gray-200 rounded-t-lg;
-            }
-
             dl {
                 @apply flex border-b border-slate-200 sm:py-2 md:py-3 rounded-md;
             }

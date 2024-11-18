@@ -21,8 +21,8 @@ class BookController extends Controller
 
         // TBC extract query paramerters  $size, $sort, $direction from the request
 
-        // TBC implement pagination and sorting
-        $books = Book::with(['category'])->get();
+        // implement pagination and sorting
+        $books = Book::with(['category'])->paginate(5);
 
         return view('books.index', ['books' => $books]);
     }

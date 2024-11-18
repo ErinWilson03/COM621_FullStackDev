@@ -14,7 +14,7 @@
 
             <div class="mt-4">
                 <button class="btn btn-primary" type="submit">Create</button>
-                <a role="button" href="{{ route('books.index') }}">Cancel</a>
+                <x-ui.link variant="green" href="{{ route('books.index') }}">Cancel</x-ui.link>
             </div>
 
         </form>
