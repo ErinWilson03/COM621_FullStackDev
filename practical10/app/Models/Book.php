@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\Sortable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -11,9 +12,9 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 class Book extends Model
 {
     /** @use HasFactory<\Database\Factories\BookFactory> */
-    use HasFactory;
+    use HasFactory, Sortable;
 
-    protected $guarded  = ['id'];
+    protected $guarded = ['id'];
 
     public function category(): BelongsTo
     {
@@ -36,6 +37,15 @@ class Book extends Model
     public function scopeSearch($query, $value)
     {
         // TBC ... configure query
+        if ($value) {
+            $query->where('title', 'like', "%{$value}%")
+                ->orWhere('description', 'like', "%{$value}%")
+                ->orWhereHas(
+                    'category',
+                    fn($q) =>
+                    $q->where('name', 'like', "%{$value}%")
+                );
+        }
         return $query;
     }
 }

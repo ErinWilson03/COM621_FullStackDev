@@ -42,6 +42,10 @@
             <dd>{{ $book->description }}</dd>
         </dl>
 
+        <dl class="display">
+            <img src="{{$book->image}}">
+        </dl>
+
         <div class="flex justify-end gap-2 mt-2">
             <x-ui.link variant="oblue" href="{{ route('books.edit', $book->id) }}">Edit</x-ui.link>
             @can('delete', $book)

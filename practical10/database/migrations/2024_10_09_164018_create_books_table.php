@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('year')->default(1900);
             $table->decimal('rating')->unsigned()->default(0);
             $table->string('description', 500)->nullable();
+            $table->longText('image')->nullable();
 
             $table->timestamps();
         });

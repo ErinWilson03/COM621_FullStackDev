@@ -25,3 +25,7 @@
         {{ old('description', $book->description) }}
     </x-ui.form.textarea>
 </div>
+
+<div class="mt-2">
+    <x-ui.form.input name="image" type="file" label="Book Cover" variant="dark"></x-ui.form.input>
+</div>

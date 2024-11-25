@@ -7,6 +7,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Validation\Rules\File;
 
 class BookController extends Controller
 {
@@ -25,13 +26,16 @@ class BookController extends Controller
         $sort = $request->input('sort', 'id');
         $direction = $request->input('direction', 'asc');
 
+        $search = $request->input('search', null);
+
         // TBC implement pagination and sorting
         $books = Book::with(['category'])
-            ->orderBy($sort, $direction)
+            ->search($search)
+            ->sortable($sort, $direction)
             ->paginate($size)
             ->withQueryString();
 
-        return view('books.index', ['books' => $books]);
+        return view('books.index', ['books' => $books, 'search' => $search]);
     }
 
     /**
@@ -65,7 +69,17 @@ class BookController extends Controller
             'category_id' => ['required'],
             'rating' => ['required', 'numeric', 'min:0', 'max:5'],
             'description' => ['min:0', 'max:500'],
+            'image' => ['nullable', File::types(['png', 'jpg'])->max(1024)],
         ], ['category_id' => 'The category field is required']);
+
+        if ($request->hasFile('image')) {
+            $file = $request->image;
+            // set validated data image field to base64 file content 
+            $data['image'] = 'data:' . $file->getMimeType()
+                . ';base64,'
+                . base64_encode(file_get_contents($file));
+            // $data['image'] = $request->image->store('books', 'public'); 
+        }
 
         Book::create($data);
 
@@ -115,7 +129,16 @@ class BookController extends Controller
             'year' => ['required', 'numeric'],
             'rating' => ['required', 'numeric', 'min:0', 'max:5'],
             'description' => ['min:0', 'max:500'],
+            'image' => ['nullable', File::types(['png', 'jpg'])->max(1024)],
         ], ['category_id' => 'The category field is required']);
+
+        if ($request->hasFile('image')) {
+            $file = $request->image;
+            // set validated data image field to base64 file content 
+            $data['image'] = 'data:' . $file->getMimeType()
+                . ';base64,'
+                . base64_encode(file_get_contents($file));
+        }
 
         $book = Book::findOrFail($id);
         $book->update($data);

@@ -15,10 +15,20 @@
         @endcan
     </x-ui.header>
 
+    <form method="GET" action="{{ route('books.index') }}" class="flex items-center gap-2 mb-4">
+        <div class="flex-1">
+            <x-ui.form.input name="search" value="{{ $search }}" class="text-xs" placeholder="search..." />
+        </div>
+        <x-ui.button variant="yellow" class="text-xs">
+            Search
+        </x-ui.button>
+        <x-ui.link variant="light" class="text-xs" href="{{ route('books.index') }}">Clear
+        </x-ui.link>
+    </form>
+
     <x-ui.card>
         <table class="table">
             <thead>
-                <!-- TBC header sort links -->
                 <tr>
                     <th>
                         <x-ui.link-sort name="id">Id</x-ui.link-sort>
@@ -33,7 +43,7 @@
                         <x-ui.link-sort name="rating">Rating</x-ui.link-sort>
                     </th>
                     <th>
-                        Category
+                        <x-ui.link-sort name="category.name">Category</x-ui.link-sort>
                     </th>
                     <th>Actions</th>
                 </tr>
