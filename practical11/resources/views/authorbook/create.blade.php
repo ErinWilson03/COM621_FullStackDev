@@ -13,8 +13,19 @@
 
     <x-ui.card>
 
-        <!-- TBC add form to add author to book here -->
-
+        <!-- form to add author to book here -->
+        <form method="POST" action="{{ route('authorbooks.store', $book->id) }}">
+            @csrf
+            <div class="mt-2">
+                <x-ui.form.select label="Author" name="author_id" value="{{ old('author_id') }}" :options="$authors" />
+            </div>
+            <div class="flex items-center gap-2 mt-2">
+                <x-ui.button variant="dark">Add</x-ui.button>
+                <x-ui.link href="{{ route('books.show', $book->id) }}">
+                    Cancel
+                </x-ui.link>
+            </div>
+        </form>
     </x-ui.card>
 
 </x-layout>

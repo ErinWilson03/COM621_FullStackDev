@@ -37,7 +37,6 @@
                     </th>
                     <th>
                         <x-ui.link-sort name="category.name">Category</x-ui.link-sort>
-
                     </th>
                     <th>Actions</th>
                 </tr>
@@ -47,6 +46,12 @@
                     <tr>
                         <td>{{ $book->id }}</td>
                         <td>{{ $book->title }}</td>
+                        {{-- Confusion --}}
+                        {{-- <td>
+                            @foreach ($book->authors as $author)
+                                <x-ui.badge variant="green">{{ $author->name }}</x-ui.badge>
+                            @endforeach
+                        </td> --}}
                         <td>{{ $book->author }}</td>
                         <td>{{ $book->rating }}</td>
                         <td>{{ $book->category->name }}</td>

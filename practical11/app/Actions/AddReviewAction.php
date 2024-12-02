@@ -22,7 +22,8 @@ class AddReviewAction
 
         // business logic updating book rating
         $review = $book->reviews()->create($data);
-        $book->rating = $book->reviews()->avg('rating');
+        $book->rating = round($review->book->reviews->avg('rating'), 1);
+
         $book->save();
 
         return $review;

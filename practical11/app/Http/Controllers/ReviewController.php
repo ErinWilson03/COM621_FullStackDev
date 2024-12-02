@@ -37,7 +37,7 @@ class ReviewController extends Controller
     }
 
     // store a review for the book identified by $id
-    public function store(Request $request, int $id /* TBC add action parameter */)
+    public function store(Request $request, int $id, AddReviewAction $addReviewAction)
     {
         // authorise the creation
         Gate::authorize('create', Review::class);
@@ -48,39 +48,17 @@ class ReviewController extends Controller
             'comment' => ['required', 'min:0', 'max:500']
         ]);
 
-        // ==== TBC replace this code with a call to the AddReviewAction ====
-        $book = Book::findOrFail($id);
-        $book->reviews()->create($data);
-
-        // update the book rating
-        $book->rating = round($book->reviews->avg('rating'), 1);
-        $book->save();
-        // ==================================================================
-
-        return redirect()->route('books.show', $book->id)->with('info', 'Review added');
+        $review = $addReviewAction->execute($id, $data);
+        
+        return redirect()->route('books.show', $review->book->id)->with('info', 'Review added');
     }
 
-    public function destroy(int $id, /* TBC add action parameter */)
+    public function destroy(int $id, DestroyReviewAction $destroyReviewAction)
     {
         // authorise the creation
         Gate::authorize('delete', Review::class);
 
-        // ==== TBC replace this code with a call to the DestroydReviewAction ====
-        $review = Review::with('book')->find($id);
-        if (!$review) {
-            return redirect()->route('books.index')->with('warning', 'Review not found');
-        }
-
-        // obtain a reference to the review book (so we can redirect back to this book)
-        $book = $review->book;
-
-        // delete the review and redirect
-        $review->delete();
-
-        // update the book rating
-        $book->rating = round($book->reviews->avg('rating'), 1);
-        $book->save();
-        // ======================================================================
+        $book = $destroyReviewAction->execute($id);
 
         return redirect()->route('books.show', $book->id)->with('info', 'Review deleted');
     }

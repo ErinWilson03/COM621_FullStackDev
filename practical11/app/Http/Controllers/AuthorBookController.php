@@ -42,11 +42,17 @@ class AuthorBookController extends Controller
             ['author_id' => 'Select an author']
         );
 
-        // TBC locate book
+        // locate book and check authorisation
+        $book = Book::find($id);
+        Gate::authorize('update', $book);
 
-        // TBC locate author and attach to book relationship
+        // locate author and attach to book relationship
+        $author = Author::find($data['author_id']);
+        $book->authors()->attach($author);
 
-        // TBC redirect to display updated book with success message
+        // redirect to display updated book
+        return redirect()->route('books.show', ['id' => $id])
+            ->with('success', "Author Added!");
 
     }
 
@@ -82,11 +88,17 @@ class AuthorBookController extends Controller
             ['author_id' => 'Select author']
         );
 
-        // TBC locate book
+        // locate book and authorise
+        $book = Book::find($id);
+        Gate::authorize('update', $book);
 
-        // TBC locate author and detach from book
-
-        // TBC redirect to show updated book with success message
+        // locate author and detach from book
+        $author = Author::find($data['author_id']);
+        $book->authors()->detach($author);
+        
+        // redirect to show updated book
+        return redirect()->route('books.show', ['id' => $id])
+            ->with('success', "Author removed!");
 
     }
 }

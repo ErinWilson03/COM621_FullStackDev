@@ -14,8 +14,19 @@
     </x-ui.header>
 
     <x-ui.card>
-
-        <!-- TBC add form to remove author from book here -->
-
+        <!-- form to remove author from book here -->
+        <form method="POST" action="{{ route('authorbooks.destroy', $book->id) }}">
+            @csrf
+            @method('DELETE')
+            <div class="mt-2">
+                <x-ui.form.select label="Author" name="author_id" value="{{ old('author_id') }}" :options="$authors" />
+            </div>
+            <div class="flex items-center gap-2 mt-2">
+                <x-ui.button variant="dark">Remove</x-ui.button>
+                <x-ui.link href="{{ route('books.show', $book->id) }}">
+                    Cancel
+                </x-ui.link>
+            </div>
+        </form>
     </x-ui.card>
 </x-layout>

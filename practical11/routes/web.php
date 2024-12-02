@@ -45,7 +45,7 @@ Route::delete("/books/{id}", [BookController::class, 'destroy'])->name('books.de
 
 // Review create routes
 Route::get("/reviews/create/{id}", [ReviewController::class, "create"])->name("reviews.create");
-Route::post("/reviews/{id}", [ReviewController::class, "storeAction"])->name("reviews.store");
+Route::post("/reviews/{id}", [ReviewController::class, "store"])->name("reviews.store");
 
 // Review read route
 Route::get("/reviews/{id}", [ReviewController::class, "show"])->name("reviews.show");

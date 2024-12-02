@@ -24,12 +24,29 @@
 
         <div class="flex items-start">
             <div class="w-full">
-
-                <dl class="display">
+                <dl class="display flex">
+                    {{-- one way of displaying authors --}}
                     <dt>Author</dt>
-                    <dd>{{ $book->author }}</dd>
+                    <dd>
+                        @foreach ($book->authors as $author)
+                            <x-ui.badge variant="green">{{ $author->name }}</x-ui.badge>
+                        @endforeach
+                    </dd>
+                    <div class="flex justify-end gap-2">
+                        @can('update', App\Models\Book::class)
+                            <x-ui.link variant="light" href="{{ route('authorbooks.create', $book->id) }}"
+                                class="flex gap-1 items-center">
+                                <x-ui.svg size="sm" plus />
+                            </x-ui.link>
+                        @endcan
+                        @can('delete', App\Models\Book::class)
+                            <x-ui.link variant="dark" href="{{ route('authorbooks.delete', $book->id) }}"
+                                class="flex gap-1 items-center">
+                                <x-ui.svg size="sm" minus />
+                            </x-ui.link>
+                        @endcan
+                    </div>
                 </dl>
-
                 <dl class="display">
                     <dt>Year</dt>
                     <dd>{{ $book->year }}</dd>
@@ -59,6 +76,7 @@
     </x-ui.card>
 
     <!-- TBC add authors partial here -->
+    @include('books._authors')
     @include('books._reviews')
 
 </x-layout>

@@ -38,21 +38,4 @@ class Review extends Model
     {
         return $this->created_at->diffForHumans();
     }
-
-
-    // TBC remove this method and migrate the business logic to the new action classes
-    public static function boot()
-    {
-        parent::boot();
-
-        static::created(function ($review) {
-            $review->book->rating = round($review->book->reviews->avg('rating'), 1);
-            $review->book->save();
-        });
-
-        static::deleted(function ($review) {
-            $review->book->rating = round($review->book->reviews->avg('rating'), 1) ?? 0;
-            $review->book->save();
-        });
-    }
 }
